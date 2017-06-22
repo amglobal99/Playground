@@ -4,24 +4,26 @@ import Foundation
 
 
 
+
+
 enum Router {
   
   
-    case get
-    case post
-    case delete
+  case get
+  case post
+  case delete
   
   
   init?(rawValue: String) {
     switch rawValue {
-      case "GET":
-        self = .get
-      case "POST":
-        self = .post
-      case "DELETE":
-        self = .delete
+    case "GET":
+      self = .get
+    case "POST":
+      self = .post
+    case "DELETE":
+      self = .delete
     default:
-        self = .get
+      self = .get
     }
     
   } // end init
@@ -30,11 +32,11 @@ enum Router {
   
   var url:String{
     switch self {
-      case .get:
-        return "http://www.yahoo.com/get"
-      case .post:
-        return "http://www.yahoo.com/get"
-      case .delete:
+    case .get:
+      return "http://www.yahoo.com/get"
+    case .post:
+      return "http://www.yahoo.com/get"
+    case .delete:
       return "http;//www.yahoo.com/dele"
     case .post:
       return "http://www.yahoo.com/post"
@@ -51,7 +53,7 @@ enum Router {
 
 
 
- var rout:Router?  = Router(rawValue: "DELETE")
+var rout:Router?  = Router(rawValue: "DELETE")
 
 
 //print(rout)
@@ -85,3 +87,10 @@ if rout == Router.delete {
 
 
 
+
+
+
+
+
+
+//: [Next](@next)
