@@ -243,12 +243,14 @@ for i in 0...(arrSorted.count - 2){
 print("Least diff is \(leastDiff) ")
 
 
+print("\n\n*****************************\n\n")
 
 
 // Move all ZEROS to end of array
 var arr8 = [4,0,9,2,0,1]
 
 func modify(arr: inout [Int] )  {
+  
   for i in 0..<arr8.count {
     print(i)
     print("Before: \(arr) ")
@@ -269,6 +271,25 @@ func modify(arr: inout [Int] )  {
 
 
 modify(arr: &arr8)
+
+
+
+print("\n\n*****************************\n\n")
+
+print(arr8)
+
+print("\n\n*****************************\n\n")
+
+
+
+
+
+
+
+
+
+
+
 
 
 

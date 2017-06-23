@@ -1,31 +1,14 @@
 //: [Previous](@previous)
 
 import Foundation
-
 import Alamofire
+import SwiftyJSON
 
 
 
 
 
 
+var arr: [Int] = [23,11,44,8,19,6,2,9,1,14]
 
-
-
-func go(name:String, age:Int, handler: (String, String)->() ) {
-  
-  print("Line 1")
-  handler("jack",  "kim")
-  
-  
-}
-
-
-var hnd: (String, String) -> () = {
-  str1, str2 in
-  print("I have \(str1)  and \(str2)")
-}
-
-
-go(name: "pauline", age: 7, handler: hnd)
 

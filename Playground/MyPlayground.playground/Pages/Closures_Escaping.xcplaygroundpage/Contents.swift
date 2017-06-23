@@ -14,6 +14,8 @@ func someFunctionWithNonescapingClosure(closure: @noescape () -> Void) {
 
 var completionHandlers: [() -> Void] = []
 
+
+
 func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
     completionHandlers.append(completionHandler)
 }
@@ -29,6 +31,7 @@ class SomeClass {
         someFunctionWithEscapingClosure { self.x = 100 }
     }
 }
+
 
 let instance = SomeClass()
 instance.doSomething()

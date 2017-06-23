@@ -5,7 +5,7 @@ import UIKit
 //import Playground
 
 
-
+/*
 
 var myClosure:(String)->() =
     {
@@ -15,22 +15,28 @@ var myClosure:(String)->() =
 
 myClosure("Ravi")
 
-
+print("\n **************************** \n\n ")
 
 
 func doProcessing(input: String, completion:(String) -> Void )  {
     print(input)
-    completion("I am Johnny !!" )
+    completion("Sangli" )
 }
 
 
 
 // call the function
-doProcessing(input: "This is Apple")
-    {
+doProcessing(input: "This is Apple")     {
     (result:String)->Void  in
-        print("got back: \(result) \n +++++++++++++++++++++++++++++++++++++\n" )
+        print("got back: \(result) \n +++++++++++++++++++++++++++++++++++++\n\n" )
     }
+
+
+
+*/
+
+
+
 
 
 
@@ -40,15 +46,16 @@ doProcessing(input: "This is Apple")
 
 //  ******* Example of how a Closure escapes a Function
 
-var secondClosure: ( (String)->Void  )?   // we will make this closure escape the function below
+var secondClosure: ( (String)->()  )?   // we will make this closure escape the function below
 
 
-// ========  my tets function  ================
+
+      // ========  my test function  ================
 
         func test( name: String,   completion: @escaping  (String)->Void ) -> String {
             //print("Variable passed into function: \(name) \n " )
             NSLog("Starting test Function ...")
-            //sleep(10)
+            sleep(10)
             NSLog("Will start closure ..")
             secondClosure = completion   // closure has escaped out of Function
             completion("Zeena")
@@ -59,24 +66,21 @@ var secondClosure: ( (String)->Void  )?   // we will make this closure escape th
 var tempClosure = {
     (st:String)->Void in
     print("Closure code. Value is : \(st) \n "  )
+    print("\n **************************** \n\n ")
 }
 
 
 
-/*
-var temp = test(name: "Jenny" )
-{
-        (st:String)->Void in
-            print("Closure code. Value is : \(st) \n "  )
-}
-
-*/
 
 var temp = test(name: "Pauly", completion: tempClosure)
+
 print ("Value returned by function  : " + temp )
+print("\n **************************** \n\n ")
 
 
-// Let's reuse the closure that wa spassed into function. Now it has escaped the function.
+
+
+// Let's reuse the closure that we passed into function. Now it has escaped the function.
 secondClosure!("new")
 
 
@@ -84,6 +88,11 @@ secondClosure!("new")
 
 
 
+
+
+
+
+/*
 
 
 
@@ -112,6 +121,13 @@ func celebrate(name:String, completion:(String)->() ) -> String  {
 
 var thisStr = celebrate(name: "xxxx", completion: otherCls)
 
+print("\n **************************** \n\n ")
+print ( "Value from closure : \(thisStr) " )
+print("\n **************************** \n\n ")
+
+
+
+
 
 //  ==========================================================================
 
@@ -121,14 +137,19 @@ var thisStr = celebrate(name: "xxxx", completion: otherCls)
 
 
 
-
-
-
+*/
 
 
 
 
 /*
+
+
+
+
+
+
+
 
 //  ===========================  ClOSURE CAPTURE LIST  ==============================================
 //
@@ -142,13 +163,18 @@ var thisStr = celebrate(name: "xxxx", completion: otherCls)
 
 
 class MyClass {
-    var value = "InitialValue"
+    var value = "InitialValue"  // this is the starting value
 }
 
-
+// create first instance
 var instance = MyClass()
 
-var clos = { [instance] in print(instance.value)  }   // closure captures current instance of the object
+// closure captures current instance of the object
+
+var clos = { [instance] in
+  print(instance.value)
+}
+
 
  instance = MyClass()    // We are creaeting a second instance. comment this line to see difference. It should print Update Value
 instance.value = "Upadated Value"
@@ -163,11 +189,13 @@ clos()
 
 // ============================================================================
 
-*/
- 
 
  
- 
+
+
+
+*/
+
 
 
 //: [Next](@next)
