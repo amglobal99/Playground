@@ -13,10 +13,11 @@
         <page name='Collections_Arrays_1'/>
         <page name='Collections_Arrays_2'/>
         <page name='Collections_Arrays_3_Dump'/>
-        <page name='Collections_Arrays_5_CUSTOM_mapFilterReduce'/>
         <page name='Collections_Arrays_4_FlatMap'/>
-        <page name='Collections_Dictionaries_DUMP'/>
-        <page name='Collections_Dictionaries'/>
+        <page name='Collections_Arrays_5_CUSTOM_mapFilterReduce'/>
+        <page name='Collections_Dictionaries_1'/>
+        <page name='Collections_Dictionaries_3_DUMP'/>
+        <page name='Collections_Dictionaries_4_FLATMAP'/>
         <page name='Collections_Dictonaries_2'/>
         <page name='Collections_Sets_DUMP'/>
         <page name='Collections_Sets'/>

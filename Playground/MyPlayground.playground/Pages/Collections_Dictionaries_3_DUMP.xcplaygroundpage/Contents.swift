@@ -13,18 +13,28 @@ dict3 = ["9":"jack","2":"paul","3":"kim", "6":"min"]
 
 
 
-/*
+
 var keyArr = Array(dict2.values)
 print(keyArr)
 
 print(Array(dict2.keys))
-*/
 
 
 
+/// Filter
 var large = dict2.filter{$0.key > 5 }.map{"\($0.value) TT" }
 
 print(large)
+
+
+
+
+
+///// ***************  HOW TO DO FLATMAP ON DICYTIONARY **************************
+
+
+
+
 
 
 

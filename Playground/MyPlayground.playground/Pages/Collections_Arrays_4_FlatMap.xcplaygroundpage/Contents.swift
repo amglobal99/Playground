@@ -41,10 +41,10 @@ print(teams)
 
 
 
-
+var teams1 = [ [4,5],[7,11],[7,44,3] ]
 
 // combine flattening and mapp into one
-var final = teams.flatMap {  val in
+var final = teams1.flatMap {  val in
      return val.map {  integer in
            return integer * 2
     }
@@ -53,6 +53,15 @@ var final = teams.flatMap {  val in
 
 print(final)
 
+
+
+
+
+
+
+//// REAL WORLD JSON example  ************************
+
+//Let's create a JSON data 
 
 
 
