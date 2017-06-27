@@ -29,9 +29,11 @@ b = nil
 
 print("Name for object a is \(a!.name)")
 
-if b != nil{
-   print("Name for object a is \(b!.name)")
+if  let temp = a {
+   print("Name for object a is \(temp.name)")
 }
+
+
 
 
 

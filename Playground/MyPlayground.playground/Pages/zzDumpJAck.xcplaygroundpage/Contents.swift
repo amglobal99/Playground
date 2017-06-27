@@ -13,54 +13,14 @@ var arr: [Int] = [23,11,0,0,11, 44,0,16]
 
 print(arr)
 
+var teams = [ [4,5],[7,11],[7,44,3] ]
 
 
-/*
-/// Sorted function **********
-///
-/// sepcify expression for $0 and $1 ( or val1 and val2 )
-/// if expression is true, then keep val1 before val2 ( DO NOT CHANGE.. 
-/// Otherwise, if FALSE
-/// INTERCHNAGE
-/// 
-/// Rule Summarized:  IF expression FALSE, CHANGE val1 and val2
-///  TRUE means val1 should be before val2
-
-
-
-var x = arr.sorted() {
-  (val1:Int, val2:Int) -> Bool    in
+for index in teams.joined() {
   
-  if val2 == 0 {
-    return true
-  } else {
-    return false
-  }
+  print(index, terminator: "  ")
   
 }
-
-
-
-print(x)
-
-*/
-
-
-
-
-
-var y = arr.sorted {
-  
-  val1, val2 in
-      return val2 == 0
-  
-}
-
-
-print(y)
-
-
-
 
 
 

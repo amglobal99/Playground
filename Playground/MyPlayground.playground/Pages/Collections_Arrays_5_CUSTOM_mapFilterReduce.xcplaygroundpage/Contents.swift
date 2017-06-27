@@ -79,3 +79,24 @@
  
  
  
+ 
+ //// *********************** FLaATMAP *************************
+ 
+ 
+ var teams: [ [String] ] = [ ["falcons","saints"],["giants","ducks"],["seahawks","49ers"] ]
+ 
+ 
+ var newList = teams.flatMap {
+      array in
+          array.map {
+              element in
+                 element + "-nfl"
+          }
+  
+ }
+ 
+ print(newList)
+ 
+ 
+ 
+ 
