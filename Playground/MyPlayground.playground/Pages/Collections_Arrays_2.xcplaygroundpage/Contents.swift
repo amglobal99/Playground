@@ -172,7 +172,23 @@ let csv = names.reduce("+++")
     "\(result),\(name)"
 }
 
-print(csv)
+print("CSV value is \(csv) ")
+
+
+
+
+let scores4 = [22,11, 5, 19,2]
+
+let total4 = scores4.reduce(0) {
+  result, val in
+  result + val
+}
+
+
+
+print("Total is \(total4)  " )
+
+
 
 
 // Another way
@@ -182,7 +198,7 @@ let csv2 = names.reduce("++"){
 print("++++++++ csv2 -----> \(csv2)   ")
 
 
-// Not sure how thos works
+// Not sure how this works
 var rr = [1, 2, 3, 4, 5].reduce([Int]() )
 {
     [$1] + $0
@@ -205,7 +221,6 @@ print(fl1)
 
 var fl2 = arr5.flatMap{$0.filter {$0 % 2 == 0} }
 print(fl2)
-
 
 
 
@@ -245,14 +260,16 @@ print("Least diff is \(leastDiff) ")
 
 print("\n\n*****************************\n\n")
 
+/*
+// ====== THIS DOES NOT WORK CORRECTLY ++++++
 
 // Move all ZEROS to end of array
-var arr8 = [4,0,9,2,0,1]
+var arr8 = [4,0,0, 9,2,0,14,0, 12, 0, 6]
 
-func modify(arr: inout [Int] )  {
+func modify(arr: inout [Int] ) -> [Int] {
   
   for i in 0..<arr8.count {
-    print(i)
+    print(" \(i) and \(arr[i]) ")
     print("Before: \(arr) ")
     
     if arr[i] == 0 {
@@ -266,11 +283,16 @@ func modify(arr: inout [Int] )  {
     
   } // for loop
   
+  return arr
+
   
 }
 
 
-modify(arr: &arr8)
+var newArray = modify(arr: &arr8)
+print("New array \(newArray) " )
+  
+
 
 
 
@@ -280,6 +302,8 @@ print(arr8)
 
 print("\n\n*****************************\n\n")
 
+
+*/
 
 
 
@@ -296,7 +320,10 @@ print("\n\n*****************************\n\n")
 /// Option 2 .... Move ZEROS to end
 var arr9 = [4,0,9,2,0,1]
 arr9.sort{ $1 == 0 }
-print(arr9)
+
+var newArr = arr9.sorted { $1 == 0 }
+
+print(newArr)
 
 
 /*
@@ -306,7 +333,7 @@ arr9.sort(by:) {
 }
 
 print(arr9)
-
 */
 
-//: [Next](@next)
+
+

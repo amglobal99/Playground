@@ -14,14 +14,18 @@ class Person {
     
             init() {
                 // Phase 1 ..... Initialize your properties
+                print("    Person: phase 1 starts")
                 self.name = "paul"
-                
+              
+              
                 // Phase 2 Begins here....All properties are initialized. Now perform additional Initialization
-                self.height = 10
+              print("    Person: phase 2 starts")
+              self.height = 10
                 
             }  // end init
     
 }  // end class
+
 
 
 
@@ -34,10 +38,14 @@ class Student: Person {
     
             init(f: String) {
                 // Phase 1 ... Initialize your properties. Then call super.init()
+              print("Student: phase 1 starts")
                 self.frat = f
                 super.init()
-                
+              
+              
+              
                 //Phase 2 .....Perform additional Initialization
+              print("Student: phase 2 starts")
                 self.frat = self.frat + "- new"
                 self.height = 20
             } // end init
