@@ -140,8 +140,18 @@ print(tempArray)
             } else {
                 let objects = jsonObject
             }
-           
-            
+          
+             print("Executing main sectin")
+          
+          
+          if let objects = objects {
+            print("valid objects ")
+          } else {
+            print("Not valid objects")
+          }
+          
+          
+          
                 for user in objects! {
                     
                     print("loop")
@@ -299,7 +309,7 @@ func getDictionaryFromJson(rootElement:String, categoryElement: String, valueEle
 
 
 
-//  ********************** MAIN LOOP *************  WORKING  COPY***************************************************
+//  ********************** MAIN LOOP *************  WORKING  COPY***************
 
 print("Starting .....")
 
@@ -308,14 +318,19 @@ let url = Bundle.main.url(forResource: "data", withExtension: "json")
 do {
     let data = try Data(contentsOf: url!)
     let object = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+  
+    print("\n\n *********** Printing JSON object *****************\n\n")
+  
+    print(object)
     
-    //print(object)
     
-    
-    
-    
-    
-    if let dictionary = object as? [AnyObject] {
+    print("\n\n ****************************\n\n")
+  
+  
+      
+      
+      
+  if let dictionary = object as? [String: AnyObject] {
         
         print("everything ok...")
         
@@ -324,26 +339,31 @@ do {
         //var myKeyArray:[String] = getKeyArrayFromJSON(key: "section", object: dictionary)!
         //print(myKeyArray)
         
-        
-        /*
-        var keyArray:[String] = getKeyArrayFromJSON(rootElement: nil, key: "section", jsonObject: dictionary)!
-        print(keyArray)
+    
+    
+    
+    //    var keyArray:[String] = getKeyArrayFromJSON(rootElement: nil, key: "section", jsonObject: dictionary)!
+      //  print(keyArray)
 
-        */
+    
         
         
         
-        
-        /*
-       
-        
-        var dict:[String:[String]] =  getDictionaryFromJson(rootElement:"users", categoryElement: "section", valueElement: "name", jsonObject: dictionary)!
-        
-        print(dict)
-        
-        */
-        
-        
+    
+    
+    /*
+     var dict:[String:[String]] =  getDictionaryFromJson(rootElement:"users", categoryElement: "section", valueElement: "name", jsonObject: dictionary)!
+     
+     print(dict)
+     
+     */
+    
+
+    
+    
+    
+    
+    
     } else {
         print("vvvv")
     }

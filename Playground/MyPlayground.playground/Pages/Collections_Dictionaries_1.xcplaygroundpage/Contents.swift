@@ -67,6 +67,12 @@ print("***************************")
 
 
 
+
+
+
+
+
+
 var dict3:[String:String]
 dict3 = ["Jack":"one", "PAul":"two", "Kelly":"three"]
 
@@ -117,7 +123,7 @@ print(jackDict)
 
 
 // ========== FILTER a Dictionary ====================
-// I want to scan a Dictionary adn check if say a value belongs within any of the value arrays
+// I want to scan a Dictionary and check if say a value belongs within any of the value arrays
 // Once w efind that entry, then I need the KEY for that entry
 // Example: get a key for an entry which contains "y" in its values
 
@@ -244,6 +250,9 @@ print("\n\n+++++++using $0.key ----> \(dd8) ")
 // Get all the second elemenst from value array
 var dd9 = dict5.map{ $0.value[1].uppercased() }
 print("\n++++++++++ using $0 value ---> \(dd9)")
+
+
+
 
 
 

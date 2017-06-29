@@ -2,35 +2,49 @@
 
 import Foundation
 
-var dict1: [String:[String]] = [:]
-var dict2:[Int:String]
-var dict3:[String:String] = [:]
+ 
+ func filterArrayOfDictionaries(dictToSearch: [[String:String] ], searchKey: String, searchValue: String) -> [ [String:String] ] {
+      let filtered = dictToSearch.filter {
+        val in
+        val[searchKey] == searchValue
+      }
+ 
+      return filtered
+ }
+ 
+ 
 
 
-dict1 = ["8":["f","j"],"22":["e","d"],"11":["w","d"],"4":["a","u"]]
-dict2 = [10: "Jack",5:"PAul",2:"Karla", 9:"cara"]
-dict3 = ["9":"jack","2":"paul","3":"kim", "6":"min"]
+var dict3: [[String:String]  ]   // this is an array of individual Dictionary items
+
+// Let's create an Array of individual Dictionary items
+dict3 = [
+  ["name":"jack","age": "10"],
+  ["name":"kim","age": "24"],
+  ["name":"pam","age":"44"]
+]
+
+
+// Let's filter the last collection which is an array of Dixtionaries
+var filtered = dict3.filter {
+  val in
+      // val["name"] == "jack"
+      val["name"] == "jack"
+}
+
+print(filtered)
+
+
+var newFilter = filterArrayOfDictionaries(dictToSearch: dict3, searchKey: "name", searchValue: "jack")
+print(newFilter)
 
 
 
 
-var keyArr = Array(dict2.values)
-print(keyArr)
-
-print(Array(dict2.keys))
-
-
-
-/// Filter
-var large = dict2.filter{$0.key > 5 }.map{"\($0.value) TT" }
-
-print(large)
 
 
 
 
-
-///// ***************  HOW TO DO FLATMAP ON DICYTIONARY **************************
 
 
 

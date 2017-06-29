@@ -42,7 +42,7 @@ alsoIncrementByTen()
 
 
 
-// ==============================================
+// ==================== FUNCTION RETURNS A function ==========================
 
 func makeGrowthTracker(forGrowth growth: Int) -> () -> Int {
     var totalGrowth = 100
@@ -63,6 +63,29 @@ let growBy500 = makeGrowthTracker(forGrowth: 500)
 growBy500()
 growBy500()
 growBy500()
+
+
+
+
+
+/*
+ 
+ // FUNCTIONS that return a Function
+ 
+ func playSoccer(str:String) -> (String)->() {
+ 
+ 
+ 
+ }
+ 
+ 
+ */
+
+
+
+
+
+
 
 
 
