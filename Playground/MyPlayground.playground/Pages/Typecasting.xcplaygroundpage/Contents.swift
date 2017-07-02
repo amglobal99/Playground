@@ -97,7 +97,7 @@ for item in library {
 var things: [Any] = []
 
 let age: Int? = 8
-things.append(age)
+things.append(age )
 
 
 things.append(0)
@@ -152,14 +152,6 @@ for thing in things {
   
   
 }
-
-
-
-
-
-
-
-
 
 
 
