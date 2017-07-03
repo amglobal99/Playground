@@ -1,6 +1,14 @@
 //: [Previous](@previous)
 
 import Foundation
+import SwiftyJSON
+
+
+
+
+
+
+
 
 enum myError : Error {
     case DivisionError(msg: String)
@@ -77,7 +85,10 @@ func printArray( teams:[String]) throws -> Int {
 
 
 
+
 */
+
+
 
 
 
@@ -86,14 +97,13 @@ func printArray( teams:[String]) throws -> Int {
 
 /*
 
-
  // ********************* Example # 2 ****************************************************************************
 
 do {
     let str = try NSString(contentsOfFile: "Foo.bar",   encoding: String.Encoding.utf8.rawValue)
-//}catch (let error as NSError)  {
-  //  print("*************************************************************")
-    // print(error.debugDescription)
+}catch (let error as NSError)  {
+    print("*************************************************************\n\n")
+     print(error.debugDescription)
 } catch {
     print("Example 2: Error: \(error.localizedDescription) ")
 }
@@ -106,7 +116,7 @@ do {
 do {
     let str = try String(contentsOfFile: "Foo.bar",   encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
 }catch (let error as NSError)  {
-      print("*************************************************************")
+      print("\n\n*************************************************************\n\n")
       print("Debug Desc:  \(error.debugDescription) ")
         print("code:  \(error.code) ")
         print("Domain:  \(error.domain) ")
@@ -121,7 +131,6 @@ do {
 // ******************* Example #2b ***************************************************
 
 
-
 */
 
 
@@ -129,6 +138,9 @@ do {
 
 
 
+
+
+/*
 
 
 // ******************* Example 3 .... using nil and Optionals to handle errors ***********************
@@ -141,44 +153,76 @@ if let plays = try? String(contentsOfFile:"foo.bar") {
     print("Example 3 : .. this one is Nil")   // value is nil
 }
 
- 
+ */
 
 
 
 
 
- 
+
+
  
  /*
 
+
 // ******************* Example 4 .... using nil and Optionals to handle error ***********************
 
-let url = Bundle.main.url(forResource: "data", withExtension: "json")
-if let plays = try? Data(contentsOf: url!) {
-    print("*************************************************************")
-    print("Example 4: I got a value which is: \(plays.count)")    // value is nOT nil
-} else {
-    // value is nil
-    print("Darn .. this one is Nil")
+
+if let url = Bundle.main.url(forResource: "data", withExtension: "json")  {
+      if let plays = try? Data(contentsOf: url) {
+          print("*************************************************************")
+          print("Result:    \(plays) ")
+          print("Example 4: I got a value which is: \(plays.count)")    // value is nOT nil
+      } else {
+          // value is nil
+          print("Darn .. this one is Nil")
+      }
+
 }
-
-
-
-// ******************* Example 5 .... using nil and Optionals to handle errors ***********************
-let url2 = Bundle.main.url(forResource: "foo", withExtension: "txt")
-if let content = try? String(contentsOf:url2!) {
-    print("*************************************************************")
-    print("I got a value which is: \(content)")      // value is nOT nil
-} else {
-    print("Example 5 : .. this one is Nil")   // value is nil
-}
-
-
-
-
 
 */
 
+
+
+
+
+
+    // ******************* Example 5 .... using nil and Optionals to handle errors ***********************
+    if let url2 = Bundle.main.url(forResource: "foo", withExtension: "txt")   {  // get the String
+          if let content = try? String(contentsOf:url2) {  // encode the String
+            
+                if let data = content.data(using: String.Encoding.utf8)  {
+                      let json = JSON(data: data)    // Create a JSON object
+                      print("*************************************************************")
+                      print(json)
+                      print(json["users"][0] )
+                }
+            
+          } else {
+              print("Example 5 : .. this one is Nil")   // value is nil
+          }
+
+    }  // end if
+
+
+
+
+
+
+
+
+// ******************** Example 6 **************************************************************
+
+    // define a string to hold your JSON
+    let jsonNew = "{ \"people\": [{ \"firstName\": \"Paul\", \"lastName\": \"Hudson\", \"isAlive\": true }, { \"firstName\": \"Angela\", \"lastName\": \"Merkel\", \"isAlive\": true }, { \"firstName\": \"George\", \"lastName\": \"Washington\", \"isAlive\": false } ] }"
+
+    if let data = jsonNew.data(using: String.Encoding.utf8)  {  // Encode string
+        let json = JSON(data: data)   // create JSON object
+        print("\n\n ********************************************")
+        for item in json["people"].arrayValue {
+          print(item["firstName"].stringValue)
+        }
+    }
 
 
 
