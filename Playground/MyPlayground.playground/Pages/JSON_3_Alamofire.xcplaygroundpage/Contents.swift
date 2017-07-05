@@ -215,7 +215,6 @@ struct Constants {
             // For some reason, this is needed to suppress and error in Playground
             URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
 
-            
             NSLog("getJSONObject: Started Execution")
             let urlRequest = URLRequest(url: url)
             
@@ -227,74 +226,73 @@ struct Constants {
             Alamofire.request(urlRequest)
               .responseJSON
               { response  in
-                // First check if user Authenticated
-                //..........
-                
-                NSLog("getJSONObject: Got result back")
-                
-                // Check if an Error is present
-                guard response.result.error == nil else {   // got an error
-                  NSLog(response.result.error! as! String)
-                  completionHandler(Result.failure(response.result.error!) )
-                  return
-                }
-                
-                // check if result value is present
-                guard response.result.value != nil else {  // Data is nil
-                  NSLog("Request did not return any data")
-                  return
-                }
-                
-                // Optional ...You can also test the status code
-                guard response.response?.statusCode  == 200  else {  // Data is nil
-                  NSLog("Response status code is not 200")
-                  return
-                }
+                    // First check if user Authenticated
+                    //..........
+                    
+                    NSLog("getJSONObject: Got result back")
+                    
+                    // Check if an Error is present
+                    guard response.result.error == nil else {   // got an error
+                      NSLog(response.result.error! as! String)
+                      completionHandler(Result.failure(response.result.error!) )
+                      return
+                    }
+                    
+                    // check if result value is present
+                    guard response.result.value != nil else {  // Data is nil
+                      NSLog("Request did not return any data")
+                      return
+                    }
+                    
+                    // Optional ...You can also test the status code
+                    guard response.response?.statusCode  == 200  else {  // Data is nil
+                      NSLog("Response status code is not 200")
+                      return
+                    }
 
-                // Everything look ok
-                
-                
-                // First, let's print the esponse
-                print("\n\n*********************** RESPONSE ****************************\n")
-                debugPrint(response)
-                print("\n ************************ END RESPONSE ********************************\n\n\n\n")
-                
-                //convert Response to SwiftyJSON object
-                let jsonObject:JSON  = JSON(response.result.value!)
-                
-                print("\n\n\n ++++++++++JSON object +++++++++++++++++")
-                print(jsonObject)
-                print(" ++++++++++++++++++ end JSON object +++++++++++")
-                
-                
-                if let path = rootPath { // rootPath is not Nil
-                  
-                      print("\n\nPath is \(path) " )
-                      let nodeCount = path.count  // How many levels deep ? ( for example, ["employees","users"] is 2 levels
-                      var pathString = ""
+                    // Everything look ok
+                    
+                    
+                    // First, let's print the esponse
+                    //print("\n\n*********************** RESPONSE ****************************\n")
+                   // debugPrint(response)
+                    //print("\n ************************ END RESPONSE ********************\n\n\n\n")
+                    
+                    //convert Response to SwiftyJSON object
+                    let jsonObject:JSON  = JSON(response.result.value!)
+                    
+                      //print("\n\n\n ++++++++++ JSON object +++++++++++++++++")
+                      //print(jsonObject)
+                      //print(" ++++++++++++++++++ end JSON object +++++++++++")
                       
-                      for i in 0..<nodeCount {
-                        if i < (nodeCount-1) {
-                          pathString += path[i] + ","
-                        }else {
-                          pathString += path[i]
-                        }
-                      }
+                    
+                    if let path = rootPath { // rootPath is not Nil
+                          print("\n\nPath is \(path) " )
+                          let nodeCount = path.count  // How many levels deep ? ( for example, ["employees","users"] is 2 levels
+                          var pathString = ""
+                          
+                          for i in 0..<nodeCount {
+                            if i < (nodeCount-1) {
+                              pathString += path[i] + ","
+                            }else {
+                              pathString += path[i]
+                            }
+                          }
+                          
+                          print("Pathstring: \(pathString) \n\n")
+                          let result = jsonObject[ pathString ]
+                          //print("\n\n\n ++++++++++ final object +++++++++++++++++")
+                          //print("result is \(result)")
+                          // print(" +++++++++++++++++++++++++++++++++++++++++\n\n")
+                          completionHandler(Result.success(result))
                       
-                      print("Pathstring: \(pathString) \n\n")
-                      
-                      let result = jsonObject[ pathString ]
-                      //print("result is \(result)")
-                      completionHandler(Result.success(result))
-                  
-                } else {  // rootPath is nil
-                      completionHandler(Result.success(jsonObject))
-                }
-                
-                
-                
-               // XCPlaygroundPage.currentPage.finishExecution()
-                
+                    } else {  // rootPath is nil
+                          completionHandler(Result.success(jsonObject))
+                    }
+                    
+                    
+                   // XCPlaygroundPage.currentPage.finishExecution()
+                    
                 
             }  // end Alamofire request
             
@@ -480,19 +478,23 @@ class TestJSON: JsonConvertible {
                         guard let strongSelf = self else {
                           return
                         }
-                        
                         // strongSelf.jsonResultObject = result.value!    ( not sure if we need the force unwrapping)
                         strongSelf.jsonResultObject = result.value   // set the value for local variable
                         
                         if let jsonObj = strongSelf.jsonResultObject {
-                            print("\n\n\n ++++++++  JSON Object +++++++++++ ")
-                            print(jsonObj)
-                            print(" ++++++++ end JSON object +++++++++++ \n\n\n")
+                            //print("\n\n\n ++++++++  Final Object +++++++++++ ")
+                            //print(jsonObj)
+                            //print(" ++++++++ end final object +++++++++++ \n\n\n")
+                          
+                          
+                            // just print the first object
+                             print(jsonObj[0])
+                             print(jsonObj[0]["availableDocks"])
+                          
+                          
                         }
-            
                   } // end closure
-                  
-            
+        
                   // get the URL
                   guard let url = getSiteURL(baseURLString: testSite.urlString, method: testSite.method , parameters: testSite.params, apiKey: testSite.apiKey) else {
                     return
@@ -502,11 +504,15 @@ class TestJSON: JsonConvertible {
         
                   // Get the JSON object ( returns a SwiftyJSON object )
                   getJSONObject(for: url, rootPath: testSite.rootPath,   completionHandler: completionHandler)
-            
-                  NSLog("main: after getJSOnObject ")
-            
-            
-        } // end main
+        
+        
+        
+        
+          } // end main
+  
+  
+  
+  
   
   
   
@@ -576,6 +582,7 @@ class TestJSON: JsonConvertible {
 
       var check = TestJSON()
       check.main()
+
 
 
       DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15), execute: {
