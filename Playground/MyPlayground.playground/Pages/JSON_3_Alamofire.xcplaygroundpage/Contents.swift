@@ -212,7 +212,7 @@ struct Constants {
           
           func getJSONObject(for url:URL, rootPath:[String]?, completionHandler:  @escaping  (Result<JSON>) ->  Void    ) {
             
-            
+            // For some reason, this is needed to suppress and error in Playground
             URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
 
             
@@ -220,17 +220,17 @@ struct Constants {
             let urlRequest = URLRequest(url: url)
             
             NSLog("getJSONObject: url is \(url) ")
+            NSLog("getJSONObject: Sending Alamofire request ")
             
             
             // Send Alamofire request
             Alamofire.request(urlRequest)
-              .validate()
               .responseJSON
               { response  in
                 // First check if user Authenticated
                 //..........
                 
-                NSLog("getJSONObject: Got something back")
+                NSLog("getJSONObject: Got result back")
                 
                 // Check if an Error is present
                 guard response.result.error == nil else {   // got an error
@@ -245,38 +245,50 @@ struct Constants {
                   return
                 }
                 
+                // Optional ...You can also test the status code
+                guard response.response?.statusCode  == 200  else {  // Data is nil
+                  NSLog("Response status code is not 200")
+                  return
+                }
+
+                // Everything look ok
+                
+                
+                // First, let's print the esponse
+                print("\n\n*********************** RESPONSE ****************************\n")
+                debugPrint(response)
+                print("\n ************************ END RESPONSE ********************************\n\n\n\n")
                 
                 //convert Response to SwiftyJSON object
                 let jsonObject:JSON  = JSON(response.result.value!)
                 
-                //print("\n\n\n ++++++++++JSON object +++++++++++++++++")
-                //print(jsonObject)
-                
+                print("\n\n\n ++++++++++JSON object +++++++++++++++++")
+                print(jsonObject)
+                print(" ++++++++++++++++++ end JSON object +++++++++++")
                 
                 
                 if let path = rootPath { // rootPath is not Nil
                   
-                  print("\n\nPath is \(path) " )
-                  
-                  let nodeCount = path.count  // How many levels deep ? ( for example, ["employees","users"] is 2 levels
-                  var pathString = ""
-                  
-                  for i in 0..<nodeCount {
-                    if i < (nodeCount-1) {
-                      pathString += path[i] + ","
-                    }else {
-                      pathString += path[i]
-                    }
-                  }
-                  
-                  print("Pathstring: \(pathString) \n\n")
-                  
-                  let result = jsonObject[ pathString ]
-                  // print("result is \(result)")
-                  completionHandler(Result.success(result))
+                      print("\n\nPath is \(path) " )
+                      let nodeCount = path.count  // How many levels deep ? ( for example, ["employees","users"] is 2 levels
+                      var pathString = ""
+                      
+                      for i in 0..<nodeCount {
+                        if i < (nodeCount-1) {
+                          pathString += path[i] + ","
+                        }else {
+                          pathString += path[i]
+                        }
+                      }
+                      
+                      print("Pathstring: \(pathString) \n\n")
+                      
+                      let result = jsonObject[ pathString ]
+                      //print("result is \(result)")
+                      completionHandler(Result.success(result))
                   
                 } else {  // rootPath is nil
-                  completionHandler(Result.success(jsonObject))
+                      completionHandler(Result.success(jsonObject))
                 }
                 
                 
@@ -284,15 +296,18 @@ struct Constants {
                // XCPlaygroundPage.currentPage.finishExecution()
                 
                 
-                
-                
             }  // end Alamofire request
             
           } // end function
           
           
-          
-          
+    
+    
+    
+    
+    
+    
+    
     
         /**
          This function gives us an array of key values.
@@ -449,76 +464,49 @@ class TestJSON: JsonConvertible {
   
   
   var jsonResultObject:JSON?
-  let testSiteName = "BIKENYC"  // change to "FLICKR" or "GITHUB" or "TYPICODE" if needed
+  let testSiteName = "BIKENYC"  // change to "FLICKR", "BIKENYC",  or "GITHUB" or "TYPICODE" if needed
   
   
       func main() {
         
-        /*
-              guard let testSite = Constants.Configuration.TestSite(rawValue: "BIKENYC") else {
-                //guard let testSite = Constants.Configuration.TestSite(rawValue: "GITHUB") else {
-                //guard let testSite = Constants.Configuration.TestSite(rawValue: "TYPICODE") else {
-                // guard let testSite = Constants.Configuration.TestSite(rawValue: "FLICKR") else {
-                return
-              }
-        */
+                  // Get access to test site details
+                  guard let testSite = Constants.Configuration.TestSite(rawValue: testSiteName) else {
+                    return
+                  }
+                  
+                  // ********  Completion Handler *************
+                  let completionHandler: (Result<JSON>) -> Void  =
+                  { [weak self] result in
+                        guard let strongSelf = self else {
+                          return
+                        }
+                        
+                        // strongSelf.jsonResultObject = result.value!    ( not sure if we need the force unwrapping)
+                        strongSelf.jsonResultObject = result.value   // set the value for local variable
+                        
+                        if let jsonObj = strongSelf.jsonResultObject {
+                            print("\n\n\n ++++++++  JSON Object +++++++++++ ")
+                            print(jsonObj)
+                            print(" ++++++++ end JSON object +++++++++++ \n\n\n")
+                        }
+            
+                  } // end closure
+                  
+            
+                  // get the URL
+                  guard let url = getSiteURL(baseURLString: testSite.urlString, method: testSite.method , parameters: testSite.params, apiKey: testSite.apiKey) else {
+                    return
+                  }
+            
+                  NSLog("getJSONObject: Calling getJSONObject")
         
-        
-        
-        
-        // Get access to test site details for Row #2
-        guard let testSite = Constants.Configuration.TestSite(rawValue: testSiteName) else {
-          return
-        }
-        
-
-        
-              
-              // ********  Completion Handler *************
-              let completionHandler: (Result<JSON>) -> Void  =
-              { [weak self] result in
-                    guard let strongSelf = self else {
-                      return
-                    }
-                    
-                    // strongSelf.jsonResultObject = result.value!    ( not sure if we need the force unwrapping)
-                    strongSelf.jsonResultObject = result.value   // set the value for local variable
-                    
-                    if let jsonObj = strongSelf.jsonResultObject {
-                        print("\n\n\n ++++++++  JSON Object +++++++++++ ")
-                        print(jsonObj)
-                        print(" ++++++++ end JSON object +++++++++++ \n\n\n")
-                    }
-        
-              } // end closure
-              
-        
-              // get the URL
-              guard let url = getSiteURL(baseURLString: testSite.urlString, method: testSite.method , parameters: testSite.params, apiKey: testSite.apiKey) else {
-                return
-              }
-        
-              NSLog("getJSONObject: Calling getJSONObject")
-         
-        
-              // Get the JSON object ( returns a SwiftyJSON object )
-              getJSONObject(for: url, rootPath: testSite.rootPath,   completionHandler: completionHandler)
-        
-              NSLog("main: after getJSOnObject ")
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-      
-      } // end main
+                  // Get the JSON object ( returns a SwiftyJSON object )
+                  getJSONObject(for: url, rootPath: testSite.rootPath,   completionHandler: completionHandler)
+            
+                  NSLog("main: after getJSOnObject ")
+            
+            
+        } // end main
   
   
   
@@ -592,7 +580,7 @@ class TestJSON: JsonConvertible {
 
       DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15), execute: {
         // Put your code which should be executed with a delay here
-          check.test2()
+         // check.test2()
         
       })
 

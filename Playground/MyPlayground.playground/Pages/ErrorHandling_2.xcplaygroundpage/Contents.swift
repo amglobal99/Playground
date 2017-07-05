@@ -13,7 +13,7 @@ var hobbies: [String] = ["sports","music","fashion","travel","cooking"]
 
 func f1GetPersonDetails() throws -> String  {
     print("starting f1")
-    print("Calling f2 method")
+    print("    Calling f2 method")
     let  details = try f2GetHobbyAndAge(hobby: "cooking")
     
     print("Completed f2 call")
@@ -31,7 +31,7 @@ func f1GetPersonDetails() throws -> String  {
 
 func f2GetHobbyAndAge (hobby:String)  throws  -> String {
     print("Starting f2")
-    print("calling f3 method ")
+    print("    calling f3 method ")
     
         let age = try f3GetAge(num: 200)
     
@@ -52,6 +52,11 @@ func f3GetAge (num:Int) throws  -> Int {
         print ( "   f3 - Returning : " + String(x))
         return x
 }
+
+
+
+
+
 
 
 
