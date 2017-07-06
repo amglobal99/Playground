@@ -458,11 +458,43 @@ struct Constants {
 
 
 
+
+      struct User {
+        
+        let id: Int
+        let title: String
+        let userid: Int
+        //let completed: Bool
+        
+        init?(json: [String: Any]) {
+          guard
+              let id = json["id"] as? Int,
+              let title = json["title"] as? String,
+              let userid = json["userId"] as? Int
+          else {
+            return nil
+          }
+        
+          self.id = id
+          self.title = title
+          self.userid = userid
+          }
+
+  
+      }
+
+
+
+
+
+
+
+
 class TestJSON: JsonConvertible {
   
   
   var jsonResultObject:JSON?
-  let testSiteName = "BIKENYC"  // change to "FLICKR", "BIKENYC",  or "GITHUB" or "TYPICODE" if needed
+  let testSiteName = "TYPICODE"  // change to "FLICKR", "BIKENYC",  or "GITHUB" or "TYPICODE" if needed
   
   
       func main() {
@@ -482,14 +514,31 @@ class TestJSON: JsonConvertible {
                         strongSelf.jsonResultObject = result.value   // set the value for local variable
                         
                         if let jsonObj = strongSelf.jsonResultObject {
-                            //print("\n\n\n ++++++++  Final Object +++++++++++ ")
+                            print("\n\n\n ++++++++  Final Object +++++++++++ ")
                             //print(jsonObj)
-                            //print(" ++++++++ end final object +++++++++++ \n\n\n")
+                            print(" ++++++++ end final object +++++++++++ \n\n\n")
                           
                           
                             // just print the first object
-                             print(jsonObj[0])
-                             print(jsonObj[0]["availableDocks"])
+                            // print(jsonObj[0])
+                            // print(jsonObj[0]["availableDocks"])
+                          
+                          
+                            /// LET'S CONVERT THIS JSON INTO OUR OBJECTS
+                          
+                          var users: [User] = []
+                          
+                           for (key, val)  in jsonObj {
+                           
+                             // let user: User? = User(json: item)
+                             print(" \(key) :  \(val) ")
+                             
+                           
+                           }
+                          
+                          
+                          
+                          
                           
                           
                         }
