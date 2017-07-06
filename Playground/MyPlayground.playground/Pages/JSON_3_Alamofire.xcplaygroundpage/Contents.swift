@@ -245,7 +245,7 @@ struct Constants {
                     }
                     
                     // Optional ...You can also test the status code
-                    guard response.response?.statusCode  == 200  else {  // Data is nil
+                    guard response.response?.statusCode  == 200  else {
                       NSLog("Response status code is not 200")
                       return
                     }
@@ -302,10 +302,7 @@ struct Constants {
     
     
     
-    
-    
-    
-    
+  
     
         /**
          This function gives us an array of key values.
@@ -454,9 +451,7 @@ struct Constants {
 
 
 
-// MARK: - Main Code
-
-
+      // MARK: - Main Code
 
 
       struct User {
@@ -466,7 +461,7 @@ struct Constants {
         let userid: Int
         //let completed: Bool
         
-        init?(json: [String: Any]) {
+        init?(_ json: [String: Any]) {
           guard
               let id = json["id"] as? Int,
               let title = json["title"] as? String,
