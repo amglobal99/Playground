@@ -11,7 +11,7 @@ import Foundation
 var a:Int  = 47
 
 
-let b = a as? Int
+let b = a as? NSInteger
 
 
 print(b)

@@ -5,4 +5,6 @@ use_frameworks!
 pod ‘SwiftyJSON'
 pod ‘Alamofire’
 pod 'Eureka'
+pod 'Unbox'
+pod 'Wrap'
 end

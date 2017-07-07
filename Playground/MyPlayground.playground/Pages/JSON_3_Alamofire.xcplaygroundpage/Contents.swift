@@ -7,11 +7,7 @@ import Alamofire
 import PlaygroundSupport
 
 
-
-
-
 //XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
 PlaygroundPage.current.needsIndefiniteExecution = true
 
 
@@ -21,6 +17,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 
 struct Constants {
 
+    
   struct Configuration {
   
             static let companyName = "Natsys International"
@@ -177,23 +174,25 @@ struct Constants {
 
 
 
-// MARK: - Json Methods
+        // MARK: - Json Methods
 
 
+          
+          // Define empty protocol
+          protocol JsonConvertible {}
+
+
+
   
-  // Define empty protocol
-  protocol JsonConvertible {}
+    // MARK: - Extensions
   
-  
-  // MARK: - Extensions
-  
-  // define an extension
-  extension JsonConvertible  {
+    // define an extension
+    extension JsonConvertible  {
     
     
     
     
-    // MARK: - Methods
+        // MARK: - Methods
     
     
           ///   This function gives as a SwifyJSON  'JSON' object
@@ -212,89 +211,98 @@ struct Constants {
           
           func getJSONObject(for url:URL, rootPath:[String]?, completionHandler:  @escaping  (Result<JSON>) ->  Void    ) {
             
-            // For some reason, this is needed to suppress and error in Playground
-            URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
+                  // For some reason, this is needed to suppress and error in Playground
+                  URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
 
-            NSLog("getJSONObject: Started Execution")
-            let urlRequest = URLRequest(url: url)
-            
-            NSLog("getJSONObject: url is \(url) ")
-            NSLog("getJSONObject: Sending Alamofire request ")
-            
-            
-            // Send Alamofire request
-            Alamofire.request(urlRequest)
-              .responseJSON
-              { response  in
-                    // First check if user Authenticated
-                    //..........
-                    
-                    NSLog("getJSONObject: Got result back")
-                    
-                    // Check if an Error is present
-                    guard response.result.error == nil else {   // got an error
-                      NSLog(response.result.error! as! String)
-                      completionHandler(Result.failure(response.result.error!) )
-                      return
-                    }
-                    
-                    // check if result value is present
-                    guard response.result.value != nil else {  // Data is nil
-                      NSLog("Request did not return any data")
-                      return
-                    }
-                    
-                    // Optional ...You can also test the status code
-                    guard response.response?.statusCode  == 200  else {
-                      NSLog("Response status code is not 200")
-                      return
-                    }
-
-                    // Everything look ok
-                    
-                    
-                    // First, let's print the esponse
-                    //print("\n\n*********************** RESPONSE ****************************\n")
-                   // debugPrint(response)
-                    //print("\n ************************ END RESPONSE ********************\n\n\n\n")
-                    
-                    //convert Response to SwiftyJSON object
-                    let jsonObject:JSON  = JSON(response.result.value!)
-                    
-                      //print("\n\n\n ++++++++++ JSON object +++++++++++++++++")
-                      //print(jsonObject)
-                      //print(" ++++++++++++++++++ end JSON object +++++++++++")
-                      
-                    
-                    if let path = rootPath { // rootPath is not Nil
-                          print("\n\nPath is \(path) " )
-                          let nodeCount = path.count  // How many levels deep ? ( for example, ["employees","users"] is 2 levels
-                          var pathString = ""
-                          
-                          for i in 0..<nodeCount {
-                            if i < (nodeCount-1) {
-                              pathString += path[i] + ","
-                            }else {
-                              pathString += path[i]
-                            }
+                  NSLog("getJSONObject: Started Execution")
+                  let urlRequest = URLRequest(url: url)
+                  
+                  //NSLog("getJSONObject: url is \(url) ")
+                  NSLog("getJSONObject: Sending Alamofire request ")
+                  
+                  
+                  // Send Alamofire request
+                  Alamofire.request(urlRequest)
+                    .responseJSON
+                    { response  in
+                           NSLog("getJSONObject: Got result back")
+                                          
+                          // Check if an Error is present
+                          guard response.result.error == nil else {   // got an error
+                            NSLog(response.result.error! as! String)
+                            completionHandler(Result.failure(response.result.error!) )
+                            return
                           }
                           
-                          print("Pathstring: \(pathString) \n\n")
-                          let result = jsonObject[ pathString ]
-                          //print("\n\n\n ++++++++++ final object +++++++++++++++++")
-                          //print("result is \(result)")
-                          // print(" +++++++++++++++++++++++++++++++++++++++++\n\n")
-                          completionHandler(Result.success(result))
+                          // check if result value is present
+                          guard let myResult = response.result.value  else {
+                            NSLog("Request did not return any data")
+                            return
+                          }
+                     
+                     
+                           /*
+                                // Optional ...You can also test the status code
+                                guard response.response?.statusCode  == 200  else {
+                                  NSLog("Response status code is not 200")
+                                  return
+                                }
+                           */
+                           
+                     
+                          // Everything look ok. Proceed ....
+                          
+                          
+                          // First, let's print the esponse
+                          //print("\n\n*********************** RESPONSE ************************\n")
+                          //debugPrint(response)
+                          //print("\n ************************ END RESPONSE ********************\n\n\n\n")
+                          
+                          //convert Response to SwiftyJSON object
+                          let jsonObject:JSON  = JSON(myResult)
+                     
+                          
+                         //print("\n\n\n ++++++++++ JSON object +++++++++++++++++")
+                         //print(jsonObject)
+                         //print(" ++++++++++++++++ end JSON object +++++++++++")
+                         
+                          
+                          if let path = rootPath { // rootPath is not Nil
+                                print("\n\nPath is \(path) " )
+                                let nodeCount = path.count
+                                 // How many levels deep?(for example, ["employees","users"] is 2 levels
+                                 // we need to get to our array
+                                var pathString = ""
+                                
+                                for i in 0..<nodeCount {
+                                  if i < (nodeCount-1) {
+                                    pathString += path[i] + ","
+                                  }else {
+                                    pathString += path[i]
+                                  }
+                                }
+                                
+                                print("Pathstring: \(pathString) \n\n")
+                                let result = jsonObject[ pathString ]
+                           
+                                print("\n\n\n ++++++++++ final object +++++++++++++++++")
+                                //print("result is \(result)")
+                                print(" +++++++++++++++++++++++++++++++++++++++++\n\n")
+                           
+                                completionHandler(Result.success(result))
+                            
+                          } else {  // rootPath is nil
+                                 print("\n\n\n ++++++++++ final object +++++++++++++++++")
+                                 print(jsonObject)
+                                 print(" +++++++++++++++++++++++++++++++++++++++++\n\n")
+                                completionHandler(Result.success(jsonObject))
+                          }
+                          
+                          
+                         // XCPlaygroundPage.currentPage.finishExecution()
+                          
                       
-                    } else {  // rootPath is nil
-                          completionHandler(Result.success(jsonObject))
-                    }
-                    
-                    
-                   // XCPlaygroundPage.currentPage.finishExecution()
-                    
-                
-            }  // end Alamofire request
+                  }  // end Alamofire request
             
           } // end function
           
@@ -447,6 +455,54 @@ struct Constants {
 
 
 
+         struct User {
+            
+            let id: Int
+            let title: String
+            let userid: Int
+            //let completed: Int
+            
+            
+            // Initializer
+            init?(_ json: [String: Any]) {
+               guard
+                  let id = json["id"] as? Int,
+                  let title = json["title"] as? String,
+                  let userid = json["userId"] as? Int
+                  //let completed = json["completed"] as? Bool
+               else {
+                     return nil
+               }
+               
+               self.id = id
+               self.title = title
+               self.userid = userid
+               //self.completed = completed
+            } // end init
+            
+            
+            
+            
+            /// Serialize your object. Convert Swift object to a Dictionary
+            /// this will be used to post using Alamofire
+            ///
+            func serialize() -> [String:Any?] {
+               
+               var output: [String:Any]  = [ : ]
+               
+               output["id"] = id as Any?
+               output["title"] = title as Any?
+               output["userid"] = userid  as Any?
+               //output["completed"] = completed  as Any?
+               
+               return output
+            }
+            
+            
+            
+         }  // end struct
+
+
 
 
 
@@ -454,29 +510,6 @@ struct Constants {
       // MARK: - Main Code
 
 
-      struct User {
-        
-        let id: Int
-        let title: String
-        let userid: Int
-        //let completed: Bool
-        
-        init?(_ json: [String: Any]) {
-          guard
-              let id = json["id"] as? Int,
-              let title = json["title"] as? String,
-              let userid = json["userId"] as? Int
-          else {
-            return nil
-          }
-        
-          self.id = id
-          self.title = title
-          self.userid = userid
-          }
-
-  
-      }
 
 
 
@@ -485,126 +518,105 @@ struct Constants {
 
 
 
-class TestJSON: JsonConvertible {
-  
-  
-  var jsonResultObject:JSON?
-  let testSiteName = "TYPICODE"  // change to "FLICKR", "BIKENYC",  or "GITHUB" or "TYPICODE" if needed
-  
-  
-      func main() {
-        
+
+        class TestJSON: JsonConvertible {
+         
+           var jsonResultObject:JSON?
+           let testSiteName = "TYPICODE"  // change to "FLICKR", "BIKENYC",  or "GITHUB" or "TYPICODE" if needed
+           var users: [User] = []
+      
+         
+            func main() {
+              
                   // Get access to test site details
                   guard let testSite = Constants.Configuration.TestSite(rawValue: testSiteName) else {
                     return
                   }
                   
-                  // ********  Completion Handler *************
+                  // =========== Completion Handler =====================
                   let completionHandler: (Result<JSON>) -> Void  =
-                  { [weak self] result in
-                        guard let strongSelf = self else {
-                          return
-                        }
-                        // strongSelf.jsonResultObject = result.value!    ( not sure if we need the force unwrapping)
-                        strongSelf.jsonResultObject = result.value   // set the value for local variable
-                        
-                        if let jsonObj = strongSelf.jsonResultObject {
-                            print("\n\n\n ++++++++  Final Object +++++++++++ ")
-                            //print(jsonObj)
-                            print(" ++++++++ end final object +++++++++++ \n\n\n")
-                          
-                          
-                            // just print the first object
-                            // print(jsonObj[0])
-                            // print(jsonObj[0]["availableDocks"])
-                          
-                          
-                            /// LET'S CONVERT THIS JSON INTO OUR OBJECTS
-                          
-                          var users: [User] = []
-                          
-                           for (key, val)  in jsonObj {
-                           
-                             // let user: User? = User(json: item)
-                             print(" \(key) :  \(val) ")
-                             
-                           
+                     { [weak self] result in
+                           guard let strongSelf = self else {
+                             return
                            }
-                          
-                          
-                          
-                          
-                          
-                          
-                        }
-                  } // end closure
+                           if let myResult: JSON = result.value {
+                                 //print(myResult)
+                                 strongSelf.jsonResultObject = myResult   // set the value for local variable
+                                 
+                                 // get the array of JSON objects
+                                 var jsonArr = myResult.arrayValue
+                                 //  print(jsonArr)
+                                 
+                                 // convert each item to a Dictionary
+                                 var dict: [[String:Any]]  = jsonArr.flatMap { $0.dictionaryObject   }
+                                 //print(dict)
+                              
+                                 // convert all items to User objects
+                                 var users: [User] = dict.flatMap{ User.init($0)   }
+                                 print("\n\n++++++++++++++++++++++++++++++++++++")
+                                 print(users.count)
+                                 print(users[2])
+                           } // end if
+                        
+                     } // end closure
         
+               
                   // get the URL
                   guard let url = getSiteURL(baseURLString: testSite.urlString, method: testSite.method , parameters: testSite.params, apiKey: testSite.apiKey) else {
                     return
                   }
-            
-                  NSLog("getJSONObject: Calling getJSONObject")
         
                   // Get the JSON object ( returns a SwiftyJSON object )
                   getJSONObject(for: url, rootPath: testSite.rootPath,   completionHandler: completionHandler)
         
+            } // end main
         
-        
-        
-          } // end main
-  
-  
-  
-  
-  
-  
-  
-  
-  
-        func test2 () {
-          
-                NSLog("Starting test2 ......")
-          
-                // Get access to test site details for Row #2
-                guard let testSite = Constants.Configuration.TestSite(rawValue: testSiteName) else {
-                  return
-                }
-          
-                guard let jsonObj = self.jsonResultObject  else {
-                 print(" Object is nil.")
-                 return
-                 }
-          
-                 NSLog("JSON object: \n \(jsonObj) "  )
-          
-                // get Section titles array ( key array)
-                guard let photoKeyArray =  getSectionTitlesArray(from: jsonObj, key: testSite.key)   else {
-                  print(" photoKeyArray is nil.")
-                  return
-                }
-                
-                print("\n\n++++++++   Section Titles Array ---> key: \(testSite.key) ++++++++++++")
-                 print(photoKeyArray)
-                 print("+++++++++++ +++++++++++++++++++++\n\n\n")
-                 
-                 // get Dictionary
-                 guard let photoItemsDictionary = getDictionary(from: jsonObj,  for: testSite.key, keyArray: photoKeyArray, dataKey: testSite.dataKey)  else {
-                 print("getKeyArray: PhotoItemsDictionary is nil.")
-                 return
-                 }
-                 
-                 print("\n\n+++++++++  Dictionary: Key: \(testSite.key!)  DataKey: \(testSite.dataKey!) ++++++++++++\n")
-                 print(photoItemsDictionary)
-                 print("\n++++++++++++++++++++++++++++++++++++++\n\n")
-          
-        }
-        
-  
-  
-  
+   
+   
+         
+         
+              
+                  func test2 () {
+                      
+                            NSLog("Starting test2 ......")
+                      
+                            // Get access to test site details for Row #2
+                            guard let testSite = Constants.Configuration.TestSite(rawValue: testSiteName) else {
+                              return
+                            }
+                      
+                            guard let jsonObj = self.jsonResultObject  else {
+                             print(" Object is nil.")
+                             return
+                             }
+                      
+                             NSLog("JSON object: \n \(jsonObj) "  )
+                      
+                            // get Section titles array ( key array)
+                            guard let photoKeyArray =  getSectionTitlesArray(from: jsonObj, key: testSite.key)   else {
+                              print(" photoKeyArray is nil.")
+                              return
+                            }
+                            
+                            print("\n\n++++++++   Section Titles Array ---> key: \(testSite.key) ++++++++++++")
+                             print(photoKeyArray)
+                             print("+++++++++++ +++++++++++++++++++++\n\n\n")
+                             
+                             // get Dictionary
+                             guard let photoItemsDictionary = getDictionary(from: jsonObj,  for: testSite.key, keyArray: photoKeyArray, dataKey: testSite.dataKey)  else {
+                             print("getKeyArray: PhotoItemsDictionary is nil.")
+                             return
+                             }
+                             
+                             print("\n\n+++++++++  Dictionary: Key: \(testSite.key!)  DataKey: \(testSite.dataKey!) ++++++++++++\n")
+                             print(photoItemsDictionary)
+                             print("\n++++++++++++++++++++++++++++++++++++++\n\n")
+                      
+                    }
+                    
+              
 
-} // end class
+        } // end class
 
 
 
@@ -641,7 +653,7 @@ class TestJSON: JsonConvertible {
 
 
 
-
+   ///  ************************************************************************
 
 
 
