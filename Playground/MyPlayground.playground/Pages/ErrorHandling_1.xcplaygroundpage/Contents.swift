@@ -19,7 +19,7 @@ enum myError : Error {
 
 
 
-/*
+
 
 func divide(a: Int, b: Int)  throws  -> Int {
     print("starting divide method")
@@ -86,7 +86,7 @@ func printArray( teams:[String]) throws -> Int {
 
 
 
-*/
+
 
 
 

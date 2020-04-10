@@ -49,4 +49,26 @@ repeat {
 
 
 
+
+
+
+var b = 0
+
+repeat {
+   print("+++++++++++ \(b) ")
+   b += 1
+} while ( b < 5)
+
+
+var bb =  0
+
+while bb < 5 {
+   
+   print(" +++++ \(bb)")
+   bb += 1
+   
+}
+
+
+
 //: [Next](@next)

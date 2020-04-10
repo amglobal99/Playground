@@ -15,9 +15,6 @@ print(set1)
 
 
 
-
-
-
 set3 = [4,9,11,2]
 print(set3)
 

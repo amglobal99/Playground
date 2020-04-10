@@ -17,31 +17,52 @@ var arr4:[Int] = [44,33,77,11,16]
 
 
 
- /// Sorted function **********
- ///
- /// sepcify expression for $0 and $1 ( or val1 and val2 )
- /// if expression is true, then keep val1 before val2 ( DO NOT CHANGE..
- /// Otherwise, if FALSE
- /// INTERCHNAGE
- ///
- /// Rule Summarized:  IF expression FALSE, CHANGE val1 and val2
- ///  TRUE means val1 should be before val2
- 
- 
- 
- var x = arr.sorted() {
- (val1:Int, val2:Int) -> Bool    in
- 
- if val2 == 0 {
- return true
- } else {
- return false
- }
- 
- }
- 
- 
- 
- print(x)
- 
+
+/// ************** BUBBLE SORT ***********************
+
+func bubble(arr:[Int] ) -> [Int] {
+   
+   var lastProcessed = arr.count - 1
+   var temp:[Int] = arr
+   
+      repeat {
+            for i in 0...(lastProcessed - 1) {
+                  print("Last : \(lastProcessed)  and \(i)" )
+                 if temp[i] > temp[i + 1] {
+                  let tmp = temp[i]
+                  temp[i] = temp[i + 1 ]
+                  temp[i + 1] = tmp
+               }
+      }
+         
+        lastProcessed -= 1
+      
+      } while lastProcessed != 0
+      
+   
+    return temp
+   
+} // end func
+
+
+
+
+
+
+var tst = bubble(arr: [33,11, 45, 19, 66, 8,77])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

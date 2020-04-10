@@ -337,3 +337,96 @@ print(arr9)
 
 
 
+
+
+
+
+
+
+
+
+/// Custom Sorted function **********
+///
+/// sepcify expression for $0 and $1 ( or val1 and val2 )
+/// if expression is true, then keep val1 before val2 ( DO NOT CHANGE..
+/// Otherwise, if FALSE
+/// INTERCHNAGE
+///
+/// Rule Summarized:  IF expression FALSE, CHANGE val1 and val2
+///  TRUE means val1 should be before val2
+
+
+
+var x = arr.sorted() {
+   (val1:Int, val2:Int) -> Bool    in
+   
+   if val2 == 0 {
+      return true
+   } else {
+      return false
+   }
+   
+}
+
+
+
+print(x)
+
+
+
+
+
+
+///  BUBBLE SORT
+
+
+
+var array = [5,3,4,6,8,2,9,1,7,10,11]
+var sortedArray = NSMutableArray(array: array)
+var sortedAboveIndex = array.count
+var swaps = 0
+
+repeat {
+   
+   var lastSwapIndex = 0
+   
+   for i in 1..<sortedAboveIndex {
+      if (sortedArray[i - 1] as! Int) > (sortedArray[i] as! Int) {
+         sortedArray.exchangeObject(at: i, withObjectAt: i-1)
+         lastSwapIndex = i
+         //print("lastSwapIndex : \(lastSwapIndex)")
+         
+         swaps += 1
+      }
+   }
+   
+   sortedAboveIndex = lastSwapIndex
+   print("Sorted above index  \(sortedAboveIndex)")
+   
+   
+} while (sortedAboveIndex != 0)
+
+
+
+
+
+// [5, 3, 4, 6, 8, 2, 9, 1, 7, 10, 11]
+print(array)
+
+// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+print(sortedArray as Array)
+
+print("Array is sorted in \(swaps) swaps.")
+
+
+
+
+
+
+
+
+
+
+
+
+

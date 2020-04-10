@@ -164,7 +164,8 @@ Cow.alert()
 
 
 
-// ========== WHEN DOES AN OBJECT GET REMOVED FROM MEMORY ?? AND HOW TO MANUALLY REMOVE BY SETTING IT TO NIL ===============
+// ========== WHEN DOES AN OBJECT GET REMOVED FROM MEMORY ?? 
+// =========  AND HOW TO MANUALLY REMOVE BY SETTING IT TO NIL ===============
 class Book {
     var bkName:String = "Atlas"
     
@@ -219,20 +220,22 @@ print( " **************************** ")
 //          This is a very Important concept
 //
 //
-class Teacher {
-    var name:String = "Tammy"
-    var bk: Book
-    
-    init(name:String,bk:Book){
-        self.name = name
-        self.bk = bk
-    }
-    
-    deinit{
-        print("Teaher is being DEINITIALIZED ..")
-    }
-    
-}
+      class Teacher {
+          var name:String = "Tammy"
+          var bk: Book
+          
+          init(name:String,bk:Book){
+              self.name = name
+              self.bk = bk
+          }
+          
+          deinit{
+              print("Teaher is being DEINITIALIZED ..")
+          }
+          
+      } // end class
+
+
 
         func tester() {
             
@@ -240,6 +243,7 @@ class Teacher {
                 var th = Teacher(name: "Kelly", bk: bk)
                 print("I am done executing this function...")
         }
+
 
 
     // CAll our test Function. After it completes, objects should get REMOVEd from memory

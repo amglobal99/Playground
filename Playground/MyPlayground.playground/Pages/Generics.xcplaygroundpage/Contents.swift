@@ -8,40 +8,8 @@ import Foundation
 import UIKit
 
 
-
-func adderInt(x: Int, _ y: Int) -> Int {
-    return x + y
-}
-
-let intSum = adderInt(x: 1, 2)
-
-
-
-func pairsFromDictionary<KeyType, ValueType> (dictionary: [KeyType: ValueType] ) -> [(KeyType, ValueType)] {
-    return Array(dictionary)
-}
-
-let pairs = pairsFromDictionary( dictionary: ["minimum": 199, "maximum": 299] )
-let morePairs = pairsFromDictionary(dictionary: [1: "Swift", 2: "Generics", 3: "Rule'"])
-
-
-
-
-print(pairs)
-
-print(morePairs)
-
-
-
-
-var dict = [1:"jack", 2:"pauline", 4:"test"]
-var a = Array(dict)
-print(a)
-
-
-for (k,v) in a {
-  print(" \(k) :  \(v)")
-  
+class a: UIView, UITextFieldDelegate {
+   
 }
 
 
@@ -103,12 +71,17 @@ class Stack<T,E:Hashable> {
 
 
 func genericTest<T:UIView>(name: T.Type) -> Void {
+    print("\n ************************** \n\n")
     print("thanks..")
     print(v.tintColor)
 }
 
 
 var v = UIView()
+var typ = type(of: v)
+
+print(typ)
+
 
 genericTest(name: type(of:v ) )
 

@@ -4,7 +4,7 @@ import Foundation
 
 
 
-
+// Function returns a function
 func test1(amt: Int) -> () -> Int {
   
       var total:Int = 10

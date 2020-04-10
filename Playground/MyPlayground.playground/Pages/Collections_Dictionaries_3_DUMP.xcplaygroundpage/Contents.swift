@@ -45,6 +45,36 @@ print(newFilter)
 
 
 
+var dict = [1:"jack", 2:"pauline", 4:"test"]
+var s = Array(dict)  // creates an array of Tuples
+print(s)
+
+
+for (k,v) in s {
+   print(" \(k) :  \(v)")
+   
+}
+
+
+
+
+
+
+func pairsFromDictionary<KeyType, ValueType> (dictionary: [KeyType: ValueType] ) -> [(KeyType, ValueType)] {
+   return Array(dictionary)
+}
+
+let pairs = pairsFromDictionary( dictionary: ["minimum": 199, "maximum": 299] )
+let morePairs = pairsFromDictionary(dictionary: [1: "Swift", 2: "Generics", 3: "Rule'"])
+
+
+
+
+print(pairs)
+
+print(morePairs)
+
+
 
 
 

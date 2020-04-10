@@ -1,9 +1,9 @@
 PODS:
-  - Alamofire (4.4.0)
-  - Eureka (2.0.1)
-  - SwiftyJSON (3.1.4)
-  - Unbox (2.4.0)
-  - Wrap (2.1.0)
+  - Alamofire (5.1.0)
+  - Eureka (5.2.1)
+  - SwiftyJSON (5.0.0)
+  - Unbox (4.0.0)
+  - Wrap (3.0.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -12,13 +12,21 @@ DEPENDENCIES:
   - Unbox
   - Wrap
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Eureka
+    - SwiftyJSON
+    - Unbox
+    - Wrap
+
 SPEC CHECKSUMS:
-  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
-  Eureka: ae837bb1dfae0c07bc1bda7aeef87876eeb537c2
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
-  Unbox: c8b2ab69d3337597b4a3f47a0538807dc12db670
-  Wrap: 731fe4fe3c2429c913a8252a17dbe8bb191e69e1
+  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  Eureka: c883105488e05bc65539f583246ecf9657cabbfe
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  Unbox: d2677af8fde59a30141e02981b11cb6a0e3b6bc5
+  Wrap: 918fdb5157e4f701f9503b2633752d6f94616f84
 
 PODFILE CHECKSUM: 91f3308cfc67bc36bc3aa58e00ca6c7b2c0eb95b
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.9.1

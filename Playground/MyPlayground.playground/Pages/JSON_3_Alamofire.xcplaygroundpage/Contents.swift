@@ -225,6 +225,9 @@ struct Constants {
                   Alamofire.request(urlRequest)
                     .responseJSON
                     { response  in
+                     
+                     
+                     
                            NSLog("getJSONObject: Got result back")
                                           
                           // Check if an Error is present

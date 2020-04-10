@@ -11,6 +11,7 @@ func makeIncrementer(forIncrement amount: Int) -> () -> Int  {
     var runningTotal = 0
     
     func incrementer()-> Int {
+        print("Current total : \(runningTotal)")
         runningTotal += amount
         return runningTotal
     }
@@ -22,16 +23,18 @@ func makeIncrementer(forIncrement amount: Int) -> () -> Int  {
 
 let incrementByTen = makeIncrementer(forIncrement: 10)
 
+
+print(" ++++++++++++++ ")
 incrementByTen()
 incrementByTen()
 incrementByTen()
 
 
-let incrementBySeven = makeIncrementer(forIncrement: 7)
+//let incrementBySeven = makeIncrementer(forIncrement: 7)
 
-incrementBySeven()
-incrementBySeven()
-incrementBySeven()
+//incrementBySeven()
+//incrementBySeven()
+//incrementBySeven()
 
 
 
